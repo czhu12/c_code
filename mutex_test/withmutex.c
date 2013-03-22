@@ -1,6 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+
+double get_time(){
+        struct timeval t;
+        struct timezone tzp;
+        gettimeofday(&t, &tzp);
+        return t.tv_sec + t.tv_usec*1e-6;
+}
+
 
 void *increment_counter(void *ptr);
 
@@ -9,6 +19,7 @@ pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
 
 int main(){
 	int x;
+	double startTime = get_time();
 	for(x = 0; x < 1000; x++){
 		counter = 0;
 		pthread_t thread1, thread2, thread3, thread4;
@@ -28,9 +39,13 @@ int main(){
 		pthread_join(thread4, NULL);
 		
 		if(counter != 400){	
-			printf("%d\n", counter);
+			//printf("%d\n", counter);
 		}
+		
 	}
+	double endTime = get_time();
+	double total_time = endTime - startTime;
+	printf("%f\n", total_time);
 }
 
 void *increment_counter(void *ptr){

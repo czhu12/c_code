@@ -22,7 +22,8 @@ int counter = 0;
 
 int main(){
 	int x;
-	//float start_time = get_time();
+	double startTime = get_time();
+
 	for(x = 0; x < 1000; x++){
 		counter = 0;
 		pthread_t thread1, thread2, thread3, thread4;
@@ -41,13 +42,13 @@ int main(){
 		pthread_join(thread3, NULL);
 		pthread_join(thread4, NULL);
 		
-		//if(counter != 400){	
-			printf("%d\n", counter);
-		//}
+		if(counter != 400){	
+		//printf("%d\n", counter);
+		}	
 	}
-	//float end_time = get_time();
-	//float total_time = end_time - start_time();
-	//printf("%g",total_time); 
+	double endTime = get_time();
+	double total_time = endTime - startTime;
+	printf("%f\n",total_time); 
 }
 
 void *increment_counter(void *ptr){
