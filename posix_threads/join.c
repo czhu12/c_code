@@ -12,8 +12,10 @@ void *BusyWork(void *t){
 	for(i = 0; i < 1000000; i++){
 		result = result + 1;
 	}
+	int returnedResult = (int) result;
 	printf("Thread #%ld is done. Result: %e\n", tid, result); 
-	pthread_exit((void*)&result);
+	//pthread_exit((void *)t);
+	pthread_exit((void *) returnedResult);
 }
 
 int main(int argc, char* argv[])
